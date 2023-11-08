@@ -20,10 +20,35 @@ class Settings
         }
         throw new Error('Accessing a non-existent property');
     }
-
     public function getRootPath(): string
     {
         return $this->path['root'] ? '/' . $this->path['root'] : '';
+    }
+
+    public function getRoutePath(): string
+    {
+        return '/' . $this->path['routes'] ?? '';
+    }
+
+    public function getAuthClassName(): string
+    {
+        return $this->app['auth'] ?? '';
+    }
+
+    public function getIdentityClassName(): string
+    {
+        return $this->app['identity'] ?? '';
+    }
+
+    public function removeAppMiddleware(string $key): void
+    {
+        unset($this->_settings['app']['routeAppMiddleware'][$key]);
+    }
+
+
+    public function getDbSetting(): array
+    {
+        return $this->db ?? [];
     }
 
     public function getViewsPath(): string
